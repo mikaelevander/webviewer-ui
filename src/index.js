@@ -16,6 +16,7 @@ import { engineTypes } from 'constants/types';
 import LayoutMode from 'constants/layoutMode';
 import FitMode from 'constants/fitMode';
 import defaultTool from 'constants/defaultTool';
+import { setMinZoomLevel, setMaxZoomLevel } from 'constants/zoomFactors';
 import getBackendPromise from 'helpers/getBackendPromise';
 import loadCustomCSS from 'helpers/loadCustomCSS';
 import loadScript from 'helpers/loadScript';
@@ -195,8 +196,6 @@ if (window.CanvasRenderingContext2D) {
           setLanguage: apis.setLanguage,
           setLayoutMode: apis.setLayoutMode,
           setNotesPanelSort: apis.setNotesPanelSort(store),
-          setMaxZoomLevel: apis.setMaxZoomLevel,
-          setMinZoomLevel: apis.setMinZoomLevel,
           setPrintQuality: apis.setPrintQuality(store),
           setReadOnly: apis.setReadOnly,
           setShowSideWindow: apis.setShowSideWindow(store),
@@ -208,6 +207,8 @@ if (window.CanvasRenderingContext2D) {
           updateOutlines: apis.updateOutlines(store),
           loadedFromServer: false,
           serverFailed: false,
+          setMinZoomLevel,
+          setMaxZoomLevel
         };
 
         window.ControlUtils = {

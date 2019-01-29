@@ -69,7 +69,6 @@ class NoteReply extends React.PureComponent {
         {this.renderHeader()}
         <NoteContents 
           annotation={reply}
-          contents={reply.getContents()}
           searchInput={searchInput}
           renderContents={renderContents}
           isEditing={isEditing} 

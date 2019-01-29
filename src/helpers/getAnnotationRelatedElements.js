@@ -21,6 +21,7 @@ export default state =>  {
         const { dataElement } = element;
         elements.push(dataElement);
       }
+     
     }
   });
 

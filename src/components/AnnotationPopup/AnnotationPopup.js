@@ -48,13 +48,12 @@ class AnnotationPopup extends React.PureComponent {
     core.addEventListener('annotationSelected', this.onAnnotationSelected);
     core.addEventListener('annotationChanged', this.onAnnotationChanged);
     core.addEventListener('updateAnnotationPermission', this.onUpdateAnnotationPermission);
-    core.addEventListener('documentUnloaded', this.onDocumentUnloaded);
     window.addEventListener('resize', this.handleWindowResize);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { isMouseLeftDown } = this.state;
-
+    
     const isAnnotationSelected = Object.keys(this.state.annotation).length !== 0;
     const isClosingAnnotationPopup = this.props.isOpen === false && this.props.isOpen !== prevProps.isOpen;
     const isStylePopupOpen = !prevState.isStylePopupOpen && this.state.isStylePopupOpen;
@@ -76,13 +75,7 @@ class AnnotationPopup extends React.PureComponent {
     core.removeEventListener('annotationSelected', this.onAnnotationSelected);
     core.removeEventListener('annotationChanged', this.onAnnotationChanged);
     core.removeEventListener('updateAnnotationPermission', this.onUpdateAnnotationPermission);
-    core.removeEventListener('documentUnloaded', this.onDocumentUnloaded);
     window.removeEventListener('resize', this.handleWindowResize);
-  }
-
-  close = () => {
-    this.props.closeElement('annotationPopup');
-    this.setState({ ...this.initialState });
   }
 
   onMouseLeftUp = () => {
@@ -93,10 +86,6 @@ class AnnotationPopup extends React.PureComponent {
     this.setState({ isMouseLeftDown:true });
   }
 
-  onDocumentUnloaded = () => {
-    this.close();
-  }
-
   onAnnotationSelected = (e, annotations, action) => {
     if (action === 'selected' && annotations.length === 1) {
       const annotation = annotations[0];
@@ -105,7 +94,8 @@ class AnnotationPopup extends React.PureComponent {
         canModify: core.canModify(annotation)
       });
     } else {
-      this.close();
+      this.props.closeElement('annotationPopup');
+      this.setState({ ...this.initialState });
     }
   }
 

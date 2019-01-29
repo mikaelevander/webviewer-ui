@@ -28,8 +28,11 @@ class NoteRoot extends React.Component {
     openEditing: PropTypes.func.isRequired,
     closeEditing: PropTypes.func.isRequired,
     numberOfReplies: PropTypes.number.isRequired,
-    contents: PropTypes.string,
     noteDateFormat: PropTypes.string
+  }
+
+  constructor(props) { 
+    super(props);
   }
 
   componentDidMount() {
@@ -87,14 +90,13 @@ class NoteRoot extends React.Component {
   }
 
   render() {
-    const { annotation, renderContents, isEditing, closeEditing, searchInput, contents } = this.props;
+    const { annotation, renderContents, isEditing, closeEditing, searchInput } = this.props;
 
     return(
       <div className="NoteRoot">
         {this.renderHeader()}
         <NoteContents 
           annotation={annotation} 
-          contents={contents}
           searchInput={searchInput} 
           renderContents={renderContents} 
           isEditing={isEditing} 

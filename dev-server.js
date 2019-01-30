@@ -65,12 +65,16 @@ app.get('/license-key.js', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../../samples/license-key.js'));
 });
 
+app.get('/config.js', (req, res) => {
+	res.sendFile(path.resolve(__dirname, '../../samples/config.js'));
+});
+
 app.get('/', (req, res) => {
 	res.sendFile(path.resolve(__dirname, 'src/index.html'));
 });
 
 app.get('/mobile', (req, res) => {
-	res.redirect(`/#d=/files/webviewer-demo-annotated.xod&a=1`);
+	res.redirect(`/#d=/files/mmm.xod&a=1`);
 });
 
 app.listen(3000, '0.0.0.0', err => {
@@ -78,6 +82,6 @@ app.listen(3000, '0.0.0.0', err => {
 		console.error(err);
 	} else {
 		console.info(`Listening at localhost:3000 (http://${ip.address()}:3000)`);
-		opn('http://localhost:3000/#d=/files/webviewer-demo-annotated.xod&a=1');
+		opn('http://localhost:3000/#d=/files/mmm.xod&a=1');
 	}
 });

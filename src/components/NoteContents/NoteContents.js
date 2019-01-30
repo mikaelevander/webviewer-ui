@@ -26,10 +26,14 @@ class NoteContents extends React.Component {
       this.onChange();
     }
   }
-  
+
   onChange = () => {
     this.textInput.current.style.height = '30px';
     this.textInput.current.style.height = (this.textInput.current.scrollHeight + 2) + 'px';
+  }
+
+  onReferenceClick = (refId) => {
+    top.mmm.detail.openRefFullScreen(refId, 'Reference', 400, 400);
   }
 
   onKeyDown = e => {
@@ -46,7 +50,7 @@ class NoteContents extends React.Component {
     if (content) {
       core.setNoteContents(this.props.annotation, this.textInput.current.value);
       if (this.props.annotation instanceof window.Annotations.FreeTextAnnotation) {
-        core.drawAnnotationsFromList([ this.props.annotation ]);
+        core.drawAnnotationsFromList([this.props.annotation]);
       }
       this.props.closeEditing();
     }
@@ -59,12 +63,12 @@ class NoteContents extends React.Component {
     return (
       <div className="NoteContents" onClick={e => e.stopPropagation()} onMouseDown={e => e.stopPropagation()}>
         <div className={`edit-content ${isEditing ? 'visible' : 'hidden'}`}>
-          <textarea 
-            ref={this.textInput} 
-            onChange={this.onChange} 
+          <textarea
+            ref={this.textInput}
+            onChange={this.onChange}
             onKeyDown={this.onKeyDown}
-            onBlur={closeEditing} 
-            defaultValue={contents} 
+            onBlur={closeEditing}
+            defaultValue={contents}
             placeholder={`${t('action.comment')}...`}
           />
           <span className="buttons">
@@ -72,9 +76,14 @@ class NoteContents extends React.Component {
             <button onMouseDown={closeEditing}>{t('action.cancel')}</button>
           </span>
         </div>
-        <div className={`container ${isEditing ? 'hidden' : 'visible'}`}>
-          {renderContents(contents)}
-        </div>
+        {annotation.referenceId ?
+          <div><span style={{ color: "navy", textDecoration: "underline" }} onClick={() => this.onReferenceClick(annotation.referenceId)}>Open</span></div>
+          :
+
+          <div className={`container ${isEditing ? 'hidden' : 'visible'}`}>
+            {renderContents(contents)}
+          </div>
+        }
       </div>
     );
   }
